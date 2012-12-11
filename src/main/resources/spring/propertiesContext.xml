@@ -10,13 +10,14 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
+                <value>classpath:messages.properties</value>
                 <value>classpath:db.properties</value>
             </list>
         </property>
-        <property name="ignoreResourceNotFound" value="true"/>
-        <property name="systemPropertiesMode">
-            <util:constant
-                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
-        </property>
+        <property name="ignoreResourceNotFound" value="false"/>
+<!--         <property name="systemPropertiesMode"> -->
+<!--             <util:constant -->
+<!--                     static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/> -->
+<!--         </property> -->
     </bean>
 </beans>

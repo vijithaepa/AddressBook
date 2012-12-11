@@ -1,0 +1,16 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver
+		options="-Xset:weaveJavaPackages=true,weaveJavaxPackages=true -verbose -debug -showWeaveInfo">
+		<!-- only weave classes in this package -->
+		<include within="com.genix.addressbook.dao.*" />
+		<include within="javax.*" />
+		<include within="org.aspectj.*" />
+	</weaver>
+	<aspects>
+		<!-- use only this aspect for weaving -->
+		<aspect name="com.genix.addressbook.util.PerformanceAdvice" />
+	</aspects>
+</aspectj>
+              

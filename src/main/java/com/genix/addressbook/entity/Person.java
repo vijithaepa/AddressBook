@@ -6,22 +6,22 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * 
  * @author Vijitha Epa.
  * @since 26-09-12.
  * 
- * Holds {@link Person} attributes.
+ *        Holds {@link Person} attributes.
  */
 @Entity
 @Table(name = "PERSON")
@@ -42,9 +42,12 @@ public class Person {
 	private String state;
 	@Column(name = "postCode")
 	private String postCode;
+	@Version
+	private int version;
 
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	// @LazyCollection(LazyCollectionOption.FALSE) -- used for few level of
+	// hierarchy, can be avoided for one level
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PERSON_ID", nullable = false)
 	private Set<Phone> phones = new HashSet<Phone>();
 
@@ -116,6 +119,14 @@ public class Person {
 
 	public void setPhones(Set<Phone> phones) {
 		this.phones = phones;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version++;
 	}
 
 	@Override

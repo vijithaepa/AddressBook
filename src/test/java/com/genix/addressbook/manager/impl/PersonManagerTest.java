@@ -16,6 +16,7 @@ import com.genix.addressbook.AbstractTest;
 import com.genix.addressbook.dao.PersonDao;
 import com.genix.addressbook.entity.Person;
 import com.genix.addressbook.entity.Phone;
+import com.genix.addressbook.exception.CheckedException;
 import com.genix.addressbook.manager.PersonManager;
 import com.genix.addressbook.util.PersonBuilder;
 import com.genix.addressbook.util.PhoneBuilder;
@@ -35,7 +36,7 @@ public class PersonManagerTest extends AbstractTest {
 		initMocks(this);
 	}
 
-	public void shouldSaveSuccessfullyAGivenValidPerson() {
+	public void shouldSaveSuccessfullyAGivenValidPerson(){
 		// Given
 		Person person = getTransientPerson();
 		given(personDao.save(person)).willReturn(getPersistentPersonForCreate());

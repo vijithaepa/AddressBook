@@ -1,41 +1,76 @@
 This contains the set of instructions required to build and run the address book application.
 
+This application demonstrate the simple usage of Java Swing, Spring (Crud Repo, Transaction handling, IOC, AOP, ORM), Hibernate/Jpa, Load Time Weaving with AspectJ (PerformanceAdvice)
+
 Contents :
 ==========
-   .
-   |──src
-   |  |─main
-   |	|─java
-   |	  |─com
-   |	    |─genix
-   |	      |─addressbook
-   |		|─dao
-   |		|─entity
-   |		|─exception
-   |		|─manager
-   |		  |─impl
-   |		|─presentation
-   |		|─util
-   |		|─validation
-   |	|─resources
-   |	  |─META-INF
-   |	  |─spring
-   |  |─test
-   |	|─java
-   |	  |─com
-   |	    |─genix
-   |	      |─addressbook
-   |		|─entity
-   |		|─manager
-   |		  |─impl
-   |		|─util
-   |		|─validation
-   |	|─resources
-   |──target
-   |  |─classes
-   |  |─test-classes
-   |──h2db.h2.db
-   |──pom.xml
+.
+├── DesignDocument.doc
+├── h2db.h2.db
+├── pom.xml
+├── ReadMe.txt
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── genix
+    │   │           └── addressbook
+    │   │               ├── dao
+    │   │               │   ├── PersonDao.java
+    │   │               │   └── PhoneDao.java
+    │   │               ├── entity
+    │   │               │   ├── Person.java
+    │   │               │   └── Phone.java
+    │   │               ├── exception
+    │   │               │   ├── CheckedException.java
+    │   │               │   └── ValidationFailException.java
+    │   │               ├── manager
+    │   │               │   ├── EntityManager.java
+    │   │               │   ├── impl
+    │   │               │   │   └── PersonManagerImpl.java
+    │   │               │   └── PersonManager.java
+    │   │               ├── presentation
+    │   │               │   ├── AddressForm.form
+    │   │               │   └── AddressForm.java
+    │   │               ├── util
+    │   │               │   ├── Builder.java
+    │   │               │   ├── PerformanceAdvice.java
+    │   │               │   ├── PersonBuilder.java
+    │   │               │   ├── PhoneBuilder.java
+    │   │               │   └── ResourceLocator.java
+    │   │               └── validation
+    │   │                   ├── BaseValidator.java
+    │   │                   └── PhoneValidator.java
+    │   └── resources
+    │       ├── db.properties
+    │       ├── messages.properties
+    │       ├── META-INF
+    │       │   └── aop.xml
+    │       ├── persistence.xml
+    │       └── spring
+    │           ├── applicationContext.xml
+    │           ├── dataContext.xml
+    │           ├── messages.properties
+    │           └── propertiesContext.xml
+    └── test
+        ├── java
+        │   └── com
+        │       └── genix
+        │           └── addressbook
+        │               ├── AbstractTest.java
+        │               ├── entity
+        │               │   ├── PersonTest.java
+        │               │   └── PhoneTest.java
+        │               ├── manager
+        │               │   └── impl
+        │               │       └── PersonManagerTest.java
+        │               ├── util
+        │               │   ├── PersonBuilderTest.java
+        │               │   ├── PhoneBuilderTest.java
+        │               │   └── ResourceLocatorTest.java
+        │               └── validation
+        │                   └── PhoneValidationTest.java
+        └── resources
 
 
 

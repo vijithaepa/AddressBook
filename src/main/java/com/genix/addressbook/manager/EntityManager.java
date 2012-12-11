@@ -1,5 +1,7 @@
 package com.genix.addressbook.manager;
 
+import com.genix.addressbook.exception.CheckedException;
+
 /**
  * 
  * @author Vijitha Epa.

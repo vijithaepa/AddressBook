@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 
 import com.genix.addressbook.entity.Person;
 import com.genix.addressbook.entity.Phone;
+import com.genix.addressbook.exception.CheckedException;
 import com.genix.addressbook.exception.ValidationFailException;
 import com.genix.addressbook.manager.PersonManager;
 import com.genix.addressbook.util.PersonBuilder;
@@ -313,13 +314,15 @@ public class AddressForm extends javax.swing.JFrame {
 		try {
 			Person person = transformFormToPersonDto();
 			PersonManager manager = (PersonManager) ResourceLocator.getBean("personManager");
-			Person savedPerson = manager.create(person);
+			Person savedPerson = null;
+
+			savedPerson = manager.create(person);
 
 			if (savedPerson != null && savedPerson.getId() > -1) {
-				JOptionPane.showMessageDialog(this, "Person Saved successfully.........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("save.person.pass"));
 				clearForm(false);
 			} else {
-				JOptionPane.showMessageDialog(this, "Person Saving FAILD...........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("save.person.fail"));
 			}
 		} catch (ValidationFailException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
@@ -332,10 +335,10 @@ public class AddressForm extends javax.swing.JFrame {
 			PersonManager manager = (PersonManager) ResourceLocator.getBean("personManager");
 			Person deletedPerson = manager.delete(person);
 			if (deletedPerson == null) {
-				JOptionPane.showMessageDialog(this, "Person Deleted successfully.........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("delete.person.pass"));
 				clearForm(false);
 			} else {
-				JOptionPane.showMessageDialog(this, "Person Deletion FAILD...........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("delete.person.fail"));
 			}
 		} catch (ValidationFailException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
@@ -348,10 +351,10 @@ public class AddressForm extends javax.swing.JFrame {
 			PersonManager manager = (PersonManager) ResourceLocator.getBean("personManager");
 			Person foundPerson = manager.findByFirstNameAndLastName(person.getFirstName(), person.getLastName());
 			if (foundPerson != null && foundPerson.getId() > -1) {
-				JOptionPane.showMessageDialog(this, "Person found.........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("find.person.pass"));
 				transformPersonDtoTotoForm(foundPerson);
 			} else {
-				JOptionPane.showMessageDialog(this, "Person Not Found...........");
+				JOptionPane.showMessageDialog(this, ResourceLocator.getI18NMessage("find.person.fail"));
 			}
 		} catch (ValidationFailException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
@@ -379,7 +382,7 @@ public class AddressForm extends javax.swing.JFrame {
 
 			return person;
 		} else {
-			throw new ValidationFailException("First Name and Last Name should not be empty");
+			throw new ValidationFailException(ResourceLocator.getI18NMessage("mandetory.firstName.lastName"));
 		}
 	}
 

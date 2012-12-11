@@ -6,19 +6,23 @@ import com.genix.addressbook.dao.PersonDao;
 import com.genix.addressbook.entity.Person;
 import com.genix.addressbook.exception.ValidationFailException;
 import com.genix.addressbook.manager.PersonManager;
+import com.genix.addressbook.util.ResourceLocator;
 
 public class PersonManagerImpl implements PersonManager {
 
 	@Autowired
 	PersonDao personDao;
 
+	// @Transactional
 	@Override
 	public Person create(Person entity) {
 		Person persistPerson = personDao.findByFirstNameAndLastName(entity.getFirstName(), entity.getLastName());
 		if (persistPerson != null && persistPerson.getId() > -1) {
 			entity.setId(persistPerson.getId());
 		}
-		return personDao.save(entity);
+		Person person = personDao.save(entity);
+		// person.setLastName(person.getLastName() + " updated");
+		return person;
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class PersonManagerImpl implements PersonManager {
 		if (toBeDeltedPerson != null && toBeDeltedPerson.getId() > -1) {
 			personDao.delete(toBeDeltedPerson);
 		} else {
-			throw new ValidationFailException("No Such a person to Delete....");
+			throw new ValidationFailException(ResourceLocator.getI18NMessage("noPersonToDelete"));
 		}
 		if (toBeDeltedPerson != null && personDao.exists(toBeDeltedPerson.getId()))
 			return entity;
@@ -46,7 +50,8 @@ public class PersonManagerImpl implements PersonManager {
 
 	@Override
 	public Person findByFirstNameAndLastName(String firstName, String lastName) {
-		return personDao.findByFirstNameAndLastName(firstName, lastName);
+		Person person = personDao.findByFirstNameAndLastName(firstName, lastName);
+		return person;
 	}
 
 }
